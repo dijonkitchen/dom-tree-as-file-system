@@ -42,8 +42,8 @@ class App extends Component {
   }
 
   renderFileTree(parent, counter = 0) {
-    let fileTree = []
     if (parent && parent.children.length > 0) {
+      let fileTree = []
       for (const child of parent.children) {
         fileTree.push(
           <details
