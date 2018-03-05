@@ -3,6 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      link: 'https://example.com'
+    }
+  }
+
+  onChangeHandler(event) {
+    this.setState({
+      link: event.target.value
+    })
+  }
+
   onReady(request) {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
         const doc = request.response.cloneNode(true)
@@ -17,9 +30,8 @@ class App extends Component {
   requestInfo() {
     const request = new XMLHttpRequest()
     const CORSproxy = 'https://cors-anywhere.herokuapp.com/'
-    let link = CORSproxy + 'https://example.com'
 
-    request.open('GET', link)
+    request.open('GET', CORSproxy + this.state.link)
     request.responseType = 'document'
     request.onreadystatechange = () => this.onReady(request)
     request.send()
@@ -30,13 +42,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input
+          placeholder='link'
+          value={this.state.link}
+          onChange={event => this.onChangeHandler(event)}
+        />
       </div>
     );
   }
