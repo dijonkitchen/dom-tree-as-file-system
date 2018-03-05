@@ -39,19 +39,23 @@ class App extends Component {
     }
   }
 
-  renderFileTree(parent) {
+  renderFileTree(parent, counter = 0) {
     let fileTree = []
     if (parent && parent.children.length > 0) {
       for (const child of parent.children) {
         fileTree.push(
-          <details open>
+          <details
+            key={counter}
+            open
+          >
             <summary>
               {child.nodeName.toLowerCase()}
             </summary>
-            {this.renderFileTree(child)}
+            {this.renderFileTree(child, counter += 1)}
           </details>
         )
       }
+
       return fileTree
     } else if (parent) {
       return parent.text
