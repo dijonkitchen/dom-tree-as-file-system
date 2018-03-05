@@ -59,7 +59,7 @@ class App extends Component {
 
       return fileTree
     } else if (parent) {
-      return parent.text
+      return parent.innerText
     }
   }
 
