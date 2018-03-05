@@ -19,13 +19,6 @@ class App extends Component {
     }, this.requestInfo)
   }
 
-  onReady(request) {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        const doc = request.response
-        const html = doc.children[0].children
-    }
-  }
-
   requestInfo() {
     const request = new XMLHttpRequest()
     const CORSproxy = 'https://cors-anywhere.herokuapp.com/'
@@ -34,6 +27,13 @@ class App extends Component {
     request.responseType = 'document'
     request.onreadystatechange = () => this.onReady(request)
     request.send()
+  }
+
+  onReady(request) {
+    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+        const doc = request.response
+        const html = doc.children[0].children
+    }
   }
 
   render() {
