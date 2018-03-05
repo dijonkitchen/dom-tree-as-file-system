@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -22,12 +21,8 @@ class App extends Component {
 
   onReady(request) {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        const doc = request.response.cloneNode(true)
-        console.log(doc)
-        const head = doc.head
-        const body = doc.body
-        console.log(head)
-        console.log(body)
+        const doc = request.response
+        const html = doc.children[0].children
     }
   }
 
