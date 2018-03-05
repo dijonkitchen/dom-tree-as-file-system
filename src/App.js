@@ -32,8 +32,10 @@ class App extends Component {
   onReady(request) {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
       const doc = request.response
-      const html = doc.children[0]
-      this.setState({ html })
+      if (doc && doc.children) {
+        const html = doc.children[0]
+        this.setState({ html })
+      }
     }
   }
 
