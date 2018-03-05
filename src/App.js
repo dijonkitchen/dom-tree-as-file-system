@@ -31,8 +31,28 @@ class App extends Component {
 
   onReady(request) {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        const doc = request.response
-        const html = doc.children[0].children
+      const doc = request.response
+      const html = doc.children[0]
+      this.setState({ html })
+    }
+  }
+
+  renderFileTree(parent) {
+    let fileTree = []
+    if (parent && parent.children.length > 0) {
+      for (const child of parent.children) {
+        fileTree.push(
+          <details open>
+            <summary>
+              {child.nodeName.toLowerCase()}
+            </summary>
+            {this.renderFileTree(child)}
+          </details>
+        )
+      }
+      return fileTree
+    } else if (parent) {
+      return parent.text
     }
   }
 
@@ -44,6 +64,7 @@ class App extends Component {
           value={this.state.link}
           onChange={event => this.onChangeHandler(event)}
         />
+        {this.renderFileTree(this.state.html)}
       </div>
     );
   }
