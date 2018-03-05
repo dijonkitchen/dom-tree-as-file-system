@@ -33,8 +33,10 @@ class App extends Component {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
       const doc = request.response
       if (doc && doc.children) {
-        const html = doc.children[0]
-        this.setState({ html })
+        this.setState({
+          head: doc.head,
+          body: doc.body
+        })
       }
     }
   }
@@ -46,7 +48,6 @@ class App extends Component {
         fileTree.push(
           <details
             key={counter}
-            open
           >
             <summary>
               {child.nodeName.toLowerCase()}
@@ -70,7 +71,8 @@ class App extends Component {
           value={this.state.link}
           onChange={event => this.onChangeHandler(event)}
         />
-        {this.renderFileTree(this.state.html)}
+        {this.renderFileTree(this.state.body)}
+        {this.renderFileTree(this.state.head)}
       </div>
     );
   }
