@@ -10,10 +10,14 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.requestInfo()
+  }
+
   onChangeHandler(event) {
     this.setState({
       link: event.target.value
-    })
+    }, this.requestInfo)
   }
 
   onReady(request) {
@@ -38,8 +42,6 @@ class App extends Component {
   }
 
   render() {
-    this.requestInfo()
-
     return (
       <div className="App">
         <input
